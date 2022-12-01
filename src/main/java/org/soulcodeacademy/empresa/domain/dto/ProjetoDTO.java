@@ -1,4 +1,4 @@
-package org.soulcodeacademy.empresa.domain.DTO;
+package org.soulcodeacademy.empresa.domain.dto;
 
 import javax.validation.constraints.NotBlank;
 
