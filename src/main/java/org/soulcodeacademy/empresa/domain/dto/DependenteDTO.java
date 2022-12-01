@@ -4,14 +4,11 @@ import javax.validation.constraints.NotBlank;
 
 public class DependenteDTO {
 
-
     @NotBlank(message = "nome é obrigatório")
     String nome ;
 
-
     @NotBlank(message = "Idade é obrigatório")
      String idade ;
-
 
     private Integer idReponsavel;
 
@@ -39,15 +36,3 @@ public class DependenteDTO {
         this.idReponsavel = idReponsavel;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
