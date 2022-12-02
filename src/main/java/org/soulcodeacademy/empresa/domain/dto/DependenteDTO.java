@@ -8,9 +8,10 @@ public class DependenteDTO {
     String nome ;
 
     @NotBlank(message = "Idade é obrigatório")
-     String idade ;
+     Integer idade ;
 
-    private Integer idReponsavel;
+
+    private Integer idEmpregado;
 
     public String getNome() {
         return nome;
@@ -20,19 +21,19 @@ public class DependenteDTO {
         this.nome = nome;
     }
 
-    public String getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(String idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 
-    public Integer getIdReponsavel() {
-        return idReponsavel;
+    public Integer getIdEmpregado() {
+        return idEmpregado;
     }
 
-    public void setIdReponsavel(Integer idReponsavel) {
-        this.idReponsavel = idReponsavel;
+    public void setIdEmpregado(Integer idEmpregado) {
+        this.idEmpregado = idEmpregado;
     }
 }
