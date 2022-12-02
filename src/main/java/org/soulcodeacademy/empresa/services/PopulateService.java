@@ -42,12 +42,13 @@ public class PopulateService {
         Endereco endereco1 = new Endereco(null, "Ubajara", "CE");
         Endereco endereco2 = new Endereco(null, "São Paulo", "SP");
         Endereco endereco3 = new Endereco(null, "São Paulo", "SP");
+        Endereco endereco4 = new Endereco(null, "Fortaleza", "CE");
 
         empregado1.setEndereco(endereco1);
         empregado2.setEndereco(endereco2);
-        empregado3.setEndereco(endereco3);
+        empregado3.setEndereco(endereco4);
 
-        this.enderecoRepository.saveAll(List.of(endereco1, endereco2, endereco3));
+        this.enderecoRepository.saveAll(List.of(endereco1, endereco2, endereco3, endereco4));
         this.empregadoRepository.saveAll(List.of(empregado1, empregado2, empregado3));
 
 
