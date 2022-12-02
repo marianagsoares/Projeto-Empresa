@@ -1,13 +1,14 @@
 package org.soulcodeacademy.empresa.domain.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class ProjetoDTO {
 
     @NotBlank (message = "Nome é obrigatorio")
     private String nome;
 
-    @NotBlank( message = "Orçamento é obrigatorio")
+    @NotNull( message = "Orçamento é obrigatorio")
     private Double orcamento;
 
     @NotBlank(message = "Descrição é obrigatorio")
