@@ -1,7 +1,7 @@
 package org.soulcodeacademy.empresa.services;
 
-import org.soulcodeacademy.empresa.reposirtories.EmpregadoRepository;
-import org.soulcodeacademy.empresa.reposirtories.EnderecoRepository;
+import org.soulcodeacademy.empresa.repositories.EmpregadoRepository;
+import org.soulcodeacademy.empresa.repositories.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

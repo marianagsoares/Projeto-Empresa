@@ -1,9 +1,9 @@
 package org.soulcodeacademy.empresa.services;
 
-import org.soulcodeacademy.empresa.reposirtories.DependenteRepository;
-import org.soulcodeacademy.empresa.reposirtories.EmpregadoRepository;
-import org.soulcodeacademy.empresa.reposirtories.EnderecoRepository;
-import org.soulcodeacademy.empresa.reposirtories.ProjetoRepository;
+import org.soulcodeacademy.empresa.repositories.DependenteRepository;
+import org.soulcodeacademy.empresa.repositories.EmpregadoRepository;
+import org.soulcodeacademy.empresa.repositories.EnderecoRepository;
+import org.soulcodeacademy.empresa.repositories.ProjetoRepository;
 import org.soulcodeacademy.empresa.domain.Dependente;
 import org.soulcodeacademy.empresa.domain.Empregado;
 import org.soulcodeacademy.empresa.domain.Endereco;

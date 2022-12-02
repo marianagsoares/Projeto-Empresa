@@ -4,6 +4,7 @@ import org.soulcodeacademy.empresa.domain.Empregado;
 import org.soulcodeacademy.empresa.services.EmpregadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,4 +20,13 @@ public class EmpregadoController {
     public List<Empregado> listarEmpregados(){
         return this.empregadoService.listarEmpregados();
     }
+
+    //listar empregado por id
+    @GetMapping("/empregados/{idEmpregado}")
+    public Empregado getEmpregadoById(@PathVariable Integer idEmpregado){
+        return this.empregadoService.getEmpregadoById(idEmpregado);
+    }
+
+    //Adicionar novo usuário
+
 }
