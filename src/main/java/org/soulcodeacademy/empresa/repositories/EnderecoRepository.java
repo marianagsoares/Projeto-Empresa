@@ -1,4 +1,4 @@
-package org.soulcodeacademy.empresa.reposirtories;
+package org.soulcodeacademy.empresa.repositories;
 
 import org.soulcodeacademy.empresa.domain.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
