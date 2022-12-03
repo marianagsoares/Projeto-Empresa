@@ -22,7 +22,7 @@ public class DependenteController {
         return this.dependenteService.listar();
     }
 
-    @GetMapping("/dependente/{idDependente}")
+    @GetMapping("/dependentes/{idDependente}")
     public Dependente getDependente(@PathVariable Integer idDependente){
         return this.dependenteService.getDependente(idDependente);
 

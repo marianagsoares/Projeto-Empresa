@@ -26,6 +26,7 @@ public class Empregado {
     private Endereco endereco;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_projeto", nullable = false)
     private List<Projeto> projetos = new ArrayList<>();
 
     public Empregado(){}
