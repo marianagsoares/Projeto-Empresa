@@ -22,7 +22,7 @@ public class Empregado {
     private Double salario;
 
     @OneToOne
-    @JoinColumn(name = "id_endereco", nullable = false)
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @ManyToMany(fetch = FetchType.EAGER)
