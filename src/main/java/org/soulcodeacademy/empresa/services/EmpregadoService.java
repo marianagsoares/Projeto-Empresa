@@ -1,8 +1,10 @@
 package org.soulcodeacademy.empresa.services;
 
 
+import org.soulcodeacademy.empresa.domain.Dependente;
 import org.soulcodeacademy.empresa.domain.Empregado;
 import org.soulcodeacademy.empresa.domain.Endereco;
+import org.soulcodeacademy.empresa.domain.dto.DependenteDTO;
 import org.soulcodeacademy.empresa.domain.dto.EmpregadoDTO;
 import org.soulcodeacademy.empresa.repositories.EmpregadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,4 +70,6 @@ public class EmpregadoService {
         Empregado empregado = this.getEmpregadoById(idEmpregado);
         this.empregadoRepository.delete(empregado);
     }
+
+
 }

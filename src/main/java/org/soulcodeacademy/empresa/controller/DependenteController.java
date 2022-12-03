@@ -25,7 +25,22 @@ public class DependenteController {
     @GetMapping("/dependentes/{idDependente}")
     public Dependente getDependente(@PathVariable Integer idDependente){
         return this.dependenteService.getDependente(idDependente);
+    }
+    @PostMapping("/dependentes")
+     public Dependente salvar(@Valid @RequestBody DependenteDTO dto) {
+       Dependente dependente = this.dependenteService.salvar(dto);
+        return dependente;
+    }
 
+    @PutMapping("dependentes/{idDependente}")
+    public Dependente atualizar(@PathVariable Integer idDependente, @Valid @RequestBody DependenteDTO dto){
+        Dependente atualizado = this.dependenteService.atualizar(idDependente, dto);
+        return atualizado;
+    }
+
+    @DeleteMapping("/dependente/{idDependente}")
+    public void deletar(@PathVariable Integer idDependente){
+        this.dependenteService.deletar(idDependente);
     }
 
 
