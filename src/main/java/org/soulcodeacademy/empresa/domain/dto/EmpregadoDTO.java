@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 public class EmpregadoDTO {
 
+    @NotNull
     private Integer idEndereco;
 
     @NotBlank(message = "nome é obrigatório")

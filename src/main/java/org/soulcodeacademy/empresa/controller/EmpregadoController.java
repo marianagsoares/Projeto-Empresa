@@ -43,7 +43,13 @@ public class EmpregadoController {
     //Atualizar empregado
     @PutMapping("/empregados/{idEmpregado}")
     public Empregado atualizarEmpregado(@PathVariable Integer idEmpregado, @Valid @RequestBody EmpregadoDTO dto){
+        System.out.println(idEmpregado);
         return this.empregadoService.atualizarEmpregado(idEmpregado, dto);
+    }
+
+    @PutMapping("/empregados/{idEmpregado}/projetos/{idProjeto}")
+    public Empregado removerProjeto(@PathVariable Integer idEmpregado, @PathVariable Integer idProjeto){
+        return this.empregadoService.removerProjeto(idEmpregado, idProjeto);
     }
 
     //Deletar Empregado
