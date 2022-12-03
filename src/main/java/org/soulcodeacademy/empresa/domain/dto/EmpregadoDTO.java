@@ -9,6 +9,7 @@ public class EmpregadoDTO {
     @NotNull
     private Integer idEndereco;
 
+
     @NotBlank(message = "nome é obrigatório")
     private String nome;
 

@@ -98,4 +98,6 @@ public class EmpregadoService {
         Empregado empregado = this.getEmpregadoById(idEmpregado);
         this.empregadoRepository.delete(empregado);
     }
+
+
 }
