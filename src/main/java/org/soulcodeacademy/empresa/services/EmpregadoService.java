@@ -37,4 +37,35 @@ public class EmpregadoService {
             return empregado.get();
         }
     }
+
+    //Criar novo empregado
+    public Empregado gerarEmpregado(EmpregadoDTO dto){
+        Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
+        Empregado novoEmpregado = this.empregadoRepository.save(new Empregado(null, dto.getNome(), dto.getEmail(), dto.getSalario()));
+        return novoEmpregado;
+    }
+
+
+    //Atualizar empregado
+    public Empregado atualizarEmpregado(Integer idEmpregado, EmpregadoDTO dto){
+
+        Empregado empregadoDadosAtuais = this.getEmpregadoById(idEmpregado);
+
+        Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
+
+        empregadoDadosAtuais.setNome(dto.getNome());
+        empregadoDadosAtuais.setEmail(dto.getEmail());
+        empregadoDadosAtuais.setSalario(dto.getSalario());
+        empregadoDadosAtuais.setEndereco(endereco);
+
+        Empregado empregadoAtualizado = this.empregadoRepository.save(empregadoDadosAtuais);
+        return empregadoAtualizado;
+    }
+
+    //Deletar Empregado
+
+    public void deletarEmpregado(Integer idEmpregado){
+        Empregado empregado = this.getEmpregadoById(idEmpregado);
+        this.empregadoRepository.delete(empregado);
+    }
 }

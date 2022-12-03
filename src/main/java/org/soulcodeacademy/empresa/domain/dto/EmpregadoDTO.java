@@ -2,6 +2,7 @@ package org.soulcodeacademy.empresa.domain.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class EmpregadoDTO {
 
@@ -11,11 +12,11 @@ public class EmpregadoDTO {
     private String nome;
 
     @Email
-    @NotBlank (message = "email é obrigatório")
+    @NotBlank(message = "email é obrigatório")
     private String email;
 
-    @NotBlank (message = "salario é obrigatório")
-    private Integer salario;
+    @NotNull(message = "salario é obrigatório")
+    private Double salario;
 
     public Integer getIdEndereco() {
         return idEndereco;
@@ -41,11 +42,11 @@ public class EmpregadoDTO {
         this.email = email;
     }
 
-    public Integer getSalario() {
+    public Double getSalario() {
         return salario;
     }
 
-    public void setSalario(Integer salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
     }
 }

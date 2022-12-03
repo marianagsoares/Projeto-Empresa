@@ -15,26 +15,27 @@ public class EnderecoController {
     @Autowired
     public EnderecoService enderecoService;
 
-    @GetMapping("/endereco")
+    @GetMapping("/enderecos")
     public List<Endereco> listar() {
         return this.enderecoService.lista();
     }
 
-    @GetMapping("/endereco/{idEndereco}")
+    @GetMapping("/enderecos/{idEndereco}")
     public Endereco getEndereco(@PathVariable Integer idEndereco){
         return this.enderecoService.getEndereco(idEndereco);
     }
-    @PostMapping("/endereco")
+    @PostMapping("/enderecos")
     public  Endereco salvar(@Valid @RequestBody EnderecoDTO dto){
         return this.enderecoService.salvar(dto);
     }
-    @PutMapping("/endereco/{idEndereco}")
+    @PutMapping("/enderecos/{idEndereco}")
     public Endereco atualizar(@PathVariable Integer idEndereco, @Valid @RequestBody EnderecoDTO dto) {
         Endereco endereçoAtulizado = this.enderecoService.atulizar(idEndereco, dto);
         return endereçoAtulizado;
     }
-    @DeleteMapping("/endereco/{idEndereco}")
+    @DeleteMapping("/enderecos/{idEndereco}")
     public void deltarEndereço(@PathVariable Integer idEndereco){
+        System.out.println(idEndereco);
         this.enderecoService.deletar(idEndereco);
     }
 }
