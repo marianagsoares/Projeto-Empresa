@@ -109,7 +109,11 @@ public class EmpregadoService {
 
     //Deletar Empregado
     public void deletarEmpregado(Integer idEmpregado){
+
         Empregado empregado = this.getEmpregadoById(idEmpregado);
+        empregado.setProjetos(null);
+
+
         this.dependenteRepository.deleteDependentes(idEmpregado);
         this.empregadoRepository.delete(empregado);
     }
