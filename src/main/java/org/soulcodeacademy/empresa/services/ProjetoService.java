@@ -38,8 +38,8 @@ public class ProjetoService {
     }
 
     public void deletar(Integer idProjeto){
-        Projeto projeto = this.getProjeto(idProjeto);
 
+        Projeto projeto = this.getProjeto(idProjeto);
         this.projetoRepository.delete(projeto);
     }
 }
