@@ -47,9 +47,16 @@ public class EmpregadoController {
         return this.empregadoService.atualizarEmpregado(idEmpregado, dto);
     }
 
-    @PutMapping("/empregados/{idEmpregado}/projetos/{idProjeto}")
+    //Deletar projeto de empregado
+    @PutMapping("/empregados/{idEmpregado}/projetos/{idProjeto}/remove")
     public Empregado removerProjeto(@PathVariable Integer idEmpregado, @PathVariable Integer idProjeto){
         return this.empregadoService.removerProjeto(idEmpregado, idProjeto);
+    }
+
+    //Adicionar projeto em empregado
+    @PutMapping("/empregados/{idEmpregado}/projetos/{idProjeto}/add")
+    public Empregado adicionarProjeto(@PathVariable Integer idEmpregado, @PathVariable Integer idProjeto){
+        return this.empregadoService.adicionarProjeto(idEmpregado, idProjeto);
     }
 
     //Deletar Empregado

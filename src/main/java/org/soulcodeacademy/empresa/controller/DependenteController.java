@@ -32,13 +32,13 @@ public class DependenteController {
         return dependente;
     }
 
-    @PutMapping("dependentes/{idDependente}")
+    @PutMapping("/dependentes/{idDependente}")
     public Dependente atualizar(@PathVariable Integer idDependente, @Valid @RequestBody DependenteDTO dto){
         Dependente atualizado = this.dependenteService.atualizar(idDependente, dto);
         return atualizado;
     }
 
-    @DeleteMapping("/dependente/{idDependente}")
+    @DeleteMapping("/dependentes/{idDependente}")
     public void deletar(@PathVariable Integer idDependente){
         this.dependenteService.deletar(idDependente);
     }
