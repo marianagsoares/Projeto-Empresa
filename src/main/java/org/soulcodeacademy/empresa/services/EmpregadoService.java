@@ -8,6 +8,8 @@ import org.soulcodeacademy.empresa.domain.dto.EmpregadoDTO;
 import org.soulcodeacademy.empresa.repositories.DependenteRepository;
 import org.soulcodeacademy.empresa.repositories.EmpregadoRepository;
 import org.soulcodeacademy.empresa.repositories.ProjetoRepository;
+import org.soulcodeacademy.empresa.services.errors.ParametrosInsuficientesError;
+import org.soulcodeacademy.empresa.services.errors.RecursoNaoEncontradoError;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -40,7 +42,7 @@ public class EmpregadoService {
         Optional<Empregado> empregado = this.empregadoRepository.findById(idEmpregado);
 
         if(empregado.isEmpty()){
-            throw new RuntimeException("O Empregado não foi encontrado!");
+            throw new RecursoNaoEncontradoError("O Empregado não foi encontrado!");
         }
         else{
             return empregado.get();
@@ -50,18 +52,10 @@ public class EmpregadoService {
     //Criar novo empregado
     public Empregado gerarEmpregado(EmpregadoDTO dto){ //Crio um novo empregado passando os dados no corpo da requisicao
         Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
-        //para empregado exisitir, endereco precisa exisitir
-        // logo eu vejo se já existe um endereco com aquele id no banco
-        //se existir eu posso setar aquele endereco no empregado
 
         Empregado empregado = new Empregado(null, dto.getNome(), dto.getEmail(), dto.getSalario());
         empregado.setEndereco(endereco);
-        //uma vez que existe eu crio o novo empregado
-        //e alem de passar as propriedades pra ele dentro do consturtor
-        //uma vez que eu verifiquei se existe o endereco, eu seto o endereco dentro do empregado
 
-        //so que tudo isso foi com base no dto, e agora que ja passou pelas validacoes do dto
-        //eu seto dentro da entidade empregado o novo empregado
         Empregado novoEmpregado = this.empregadoRepository.save(empregado);
         return novoEmpregado;
     }
@@ -71,7 +65,7 @@ public class EmpregadoService {
     public Empregado atualizarEmpregado(Integer idEmpregado, EmpregadoDTO dto){
 
         if(dto.getIdEndereco() == null){
-            throw new RuntimeException("idEndereco é obrigatório");
+            throw new ParametrosInsuficientesError("idEndereco é obrigatório");
         }else{
             Empregado empregadoDadosAtuais = this.getEmpregadoById(idEmpregado);
             Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
