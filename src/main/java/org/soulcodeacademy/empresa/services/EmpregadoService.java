@@ -8,6 +8,8 @@ import org.soulcodeacademy.empresa.domain.dto.EmpregadoDTO;
 import org.soulcodeacademy.empresa.repositories.DependenteRepository;
 import org.soulcodeacademy.empresa.repositories.EmpregadoRepository;
 import org.soulcodeacademy.empresa.repositories.ProjetoRepository;
+import org.soulcodeacademy.empresa.services.errors.ParametrosInsuficientesError;
+import org.soulcodeacademy.empresa.services.errors.RecursoNaoEncontradoError;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -40,7 +42,7 @@ public class EmpregadoService {
         Optional<Empregado> empregado = this.empregadoRepository.findById(idEmpregado);
 
         if(empregado.isEmpty()){
-            throw new RuntimeException("O Empregado não foi encontrado!");
+            throw new RecursoNaoEncontradoError("O Empregado não foi encontrado!");
         }
         else{
             return empregado.get();
@@ -71,7 +73,7 @@ public class EmpregadoService {
     public Empregado atualizarEmpregado(Integer idEmpregado, EmpregadoDTO dto){
 
         if(dto.getIdEndereco() == null){
-            throw new RuntimeException("idEndereco é obrigatório");
+            throw new ParametrosInsuficientesError("idEndereco é obrigatório");
         }else{
             Empregado empregadoDadosAtuais = this.getEmpregadoById(idEmpregado);
             Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
