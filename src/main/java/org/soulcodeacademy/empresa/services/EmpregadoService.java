@@ -69,29 +69,27 @@ public class EmpregadoService {
 
     //Atualizar empregado
     public Empregado atualizarEmpregado(Integer idEmpregado, EmpregadoDTO dto){
-        System.out.println(idEmpregado);
-        Empregado empregadoDadosAtuais = this.getEmpregadoById(idEmpregado);
-        //se o id do empregado que eu quero atualizar existe
 
-           Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
-           //ele espera receber no corpo da requisicao de atualizar empregado o idendereco
-            //verificar qual o idendereco que esta relacionado a aquele empregado
+        if(dto.getIdEndereco() == null){
+            throw new RuntimeException("idEndereco é obrigatório");
+        }else{
+            Empregado empregadoDadosAtuais = this.getEmpregadoById(idEmpregado);
+            Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
 
-        empregadoDadosAtuais.setNome(dto.getNome());
-        empregadoDadosAtuais.setEmail(dto.getEmail());
-        empregadoDadosAtuais.setSalario(dto.getSalario());
-        empregadoDadosAtuais.setEndereco(endereco);
+            empregadoDadosAtuais.setNome(dto.getNome());
+            empregadoDadosAtuais.setEmail(dto.getEmail());
+            empregadoDadosAtuais.setSalario(dto.getSalario());
+            empregadoDadosAtuais.setEndereco(endereco);
 
-        Empregado empregadoAtualizado = this.empregadoRepository.save(empregadoDadosAtuais);
-        return empregadoAtualizado;
+            Empregado empregadoAtualizado = this.empregadoRepository.save(empregadoDadosAtuais);
+            return empregadoAtualizado;
+        }
     }
 
     //Remover projeto de empregado
     public Empregado removerProjeto(Integer idEmpregado, Integer idProjeto){
         Empregado empregado = this.getEmpregadoById(idEmpregado);
         Projeto projeto = this.projetoService.getProjeto(idProjeto);
-
-        empregado.getProjetos().remove(projeto);
 
         return this.empregadoRepository.save(empregado);
     }
@@ -112,7 +110,6 @@ public class EmpregadoService {
 
         Empregado empregado = this.getEmpregadoById(idEmpregado);
         empregado.setProjetos(null);
-
 
         this.dependenteRepository.deleteDependentes(idEmpregado);
         this.empregadoRepository.delete(empregado);

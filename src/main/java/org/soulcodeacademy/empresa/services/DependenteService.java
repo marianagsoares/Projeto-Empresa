@@ -47,16 +47,22 @@ public class DependenteService {
     }
 
     public Dependente atualizar (Integer idDependente, DependenteDTO dto){
-        Dependente dependenteAtual =  this.getDependente(idDependente);
-        Empregado empregado = this.empregadoService.getEmpregadoById(dto.getIdEmpregado());
 
-        dependenteAtual.setNome(dto.getNome());
-        dependenteAtual.setIdade(dto.getIdade());
-        dependenteAtual.setResponsavel(empregado);
+        if(dto.getIdEmpregado() == null){
 
-        Dependente atualizado = this.dependenteRepository.save(dependenteAtual);
-        return atualizado;
+            throw new RuntimeException("idEmpregado é obrigatório");
 
+        }else{
+            Dependente dependenteAtual =  this.getDependente(idDependente);
+            Empregado empregado = this.empregadoService.getEmpregadoById(dto.getIdEmpregado());
+
+            dependenteAtual.setNome(dto.getNome());
+            dependenteAtual.setIdade(dto.getIdade());
+            dependenteAtual.setResponsavel(empregado);
+
+            Dependente atualizado = this.dependenteRepository.save(dependenteAtual);
+            return atualizado;
+        }
     }
 
     public void deletar(Integer idDependente){

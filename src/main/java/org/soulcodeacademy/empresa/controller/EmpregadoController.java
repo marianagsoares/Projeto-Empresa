@@ -62,7 +62,7 @@ public class EmpregadoController {
     //Deletar Empregado
     @DeleteMapping("/empregados/{idEmpregado}")
     public void deletarEmpregado(@PathVariable Integer idEmpregado){
-        System.out.println(idEmpregado);
+
         this.empregadoService.deletarEmpregado(idEmpregado);
     }
 }
