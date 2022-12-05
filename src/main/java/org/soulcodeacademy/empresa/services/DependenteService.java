@@ -4,6 +4,8 @@ import org.soulcodeacademy.empresa.domain.Dependente;
 import org.soulcodeacademy.empresa.domain.Empregado;
 import org.soulcodeacademy.empresa.domain.dto.DependenteDTO;
 import org.soulcodeacademy.empresa.repositories.DependenteRepository;
+import org.soulcodeacademy.empresa.services.errors.ParametrosInsuficientesError;
+import org.soulcodeacademy.empresa.services.errors.RecursoNaoEncontradoError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +29,9 @@ public class DependenteService {
     }
 
     public Dependente getDependente(Integer idDependente) {
-        Optional<Dependente> dependente = this.dependenteRepository.findById(idDependente);
-        if (dependente.isEmpty()) {
-            throw new RuntimeException("Dependente não encontrado");
 
-        } else {
-            return dependente.get();
-        }
+        return  this.dependenteRepository.findById(idDependente)
+           .orElseThrow(() -> new RecursoNaoEncontradoError("Chamado não encontrado"));
     }
 
 
@@ -48,21 +46,21 @@ public class DependenteService {
 
     public Dependente atualizar (Integer idDependente, DependenteDTO dto){
 
-        if(dto.getIdEmpregado() == null){
+        Dependente dependenteAtual =  this.getDependente(idDependente);
 
-            throw new RuntimeException("idEmpregado é obrigatório");
+        dependenteAtual.setNome(dto.getNome());
+        dependenteAtual.setIdade(dto.getIdade());
+
+        if(dto.getIdEmpregado() == null){
+            throw new ParametrosInsuficientesError("idEmpregado é obrigatório");
 
         }else{
-            Dependente dependenteAtual =  this.getDependente(idDependente);
             Empregado empregado = this.empregadoService.getEmpregadoById(dto.getIdEmpregado());
-
-            dependenteAtual.setNome(dto.getNome());
-            dependenteAtual.setIdade(dto.getIdade());
             dependenteAtual.setResponsavel(empregado);
-
-            Dependente atualizado = this.dependenteRepository.save(dependenteAtual);
-            return atualizado;
         }
+
+        Dependente atualizado = this.dependenteRepository.save(dependenteAtual);
+        return atualizado;
     }
 
     public void deletar(Integer idDependente){
