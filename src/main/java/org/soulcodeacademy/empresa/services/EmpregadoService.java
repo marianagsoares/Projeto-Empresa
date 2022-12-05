@@ -5,6 +5,7 @@ import org.soulcodeacademy.empresa.domain.Empregado;
 import org.soulcodeacademy.empresa.domain.Endereco;
 import org.soulcodeacademy.empresa.domain.Projeto;
 import org.soulcodeacademy.empresa.domain.dto.EmpregadoDTO;
+import org.soulcodeacademy.empresa.repositories.DependenteRepository;
 import org.soulcodeacademy.empresa.repositories.EmpregadoRepository;
 import org.soulcodeacademy.empresa.repositories.ProjetoRepository;
 import org.soulcodeacademy.empresa.services.errors.RecursoNaoEncontradoError;
@@ -19,6 +20,9 @@ import java.util.Optional;
 public class EmpregadoService {
     @Autowired
     private EmpregadoRepository empregadoRepository; //EU QUERO FAZER OPERAÇÕES NO BANCO COM EMPREGADO
+
+    @Autowired
+    private DependenteRepository dependenteRepository;
 
     @Autowired
     private ProjetoService projetoService; //EU SO QUERO IDENTIFICAR O PROJETO NO BANCO
@@ -66,21 +70,21 @@ public class EmpregadoService {
 
     //Atualizar empregado
     public Empregado atualizarEmpregado(Integer idEmpregado, EmpregadoDTO dto){
-        System.out.println(idEmpregado);
-        Empregado empregadoDadosAtuais = this.getEmpregadoById(idEmpregado);
-        //se o id do empregado que eu quero atualizar existe
 
-           Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
-           //ele espera receber no corpo da requisicao de atualizar empregado o idendereco
-            //verificar qual o idendereco que esta relacionado a aquele empregado
+        if(dto.getIdEndereco() == null){
+            throw new RuntimeException("idEndereco é obrigatório");
+        }else{
+            Empregado empregadoDadosAtuais = this.getEmpregadoById(idEmpregado);
+            Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco());
 
-        empregadoDadosAtuais.setNome(dto.getNome());
-        empregadoDadosAtuais.setEmail(dto.getEmail());
-        empregadoDadosAtuais.setSalario(dto.getSalario());
-        empregadoDadosAtuais.setEndereco(endereco);
+            empregadoDadosAtuais.setNome(dto.getNome());
+            empregadoDadosAtuais.setEmail(dto.getEmail());
+            empregadoDadosAtuais.setSalario(dto.getSalario());
+            empregadoDadosAtuais.setEndereco(endereco);
 
-        Empregado empregadoAtualizado = this.empregadoRepository.save(empregadoDadosAtuais);
-        return empregadoAtualizado;
+            Empregado empregadoAtualizado = this.empregadoRepository.save(empregadoDadosAtuais);
+            return empregadoAtualizado;
+        }
     }
 
     //Remover projeto de empregado
@@ -88,17 +92,28 @@ public class EmpregadoService {
         Empregado empregado = this.getEmpregadoById(idEmpregado);
         Projeto projeto = this.projetoService.getProjeto(idProjeto);
 
-        empregado.getProjetos().remove(projeto);
-
         return this.empregadoRepository.save(empregado);
     }
 
-    //Deletar Empregado
-    //PRA USAR O DELETE PRECISA PRIMEIRO DELETAR O ENDERECO
-    public void deletarEmpregado(Integer idEmpregado){
+    //Adicionar projeto a empregado
+
+    public Empregado adicionarProjeto(Integer idEmpregado, Integer idProjeto){
         Empregado empregado = this.getEmpregadoById(idEmpregado);
-        this.empregadoRepository.delete(empregado);
+        Projeto projeto = this.projetoService.getProjeto(idProjeto);
+
+        empregado.getProjetos().add(projeto);
+
+        return  this.empregadoRepository.save(empregado);
     }
 
+    //Deletar Empregado
+    public void deletarEmpregado(Integer idEmpregado){
+
+        Empregado empregado = this.getEmpregadoById(idEmpregado);
+        empregado.setProjetos(null);
+
+        this.dependenteRepository.deleteDependentes(idEmpregado);
+        this.empregadoRepository.delete(empregado);
+    }
 
 }
